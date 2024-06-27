@@ -4,18 +4,56 @@ using UnityEngine;
 
 public class ArrayObjetos : MonoBehaviour
 {
-    public GameObject[] OBJETOS;
-    public int currentObjeto= -1;
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
+    public GameObject[] objetos;
+    private int objetosIndex = 0;
     void Update()
     {
-        
+        if (Input.GetKeyDown(KeyCode.RightArrow))
+        {
+            ActivateNextLight();
+        }
+        else if (Input.GetKeyDown(KeyCode.LeftArrow))
+        {
+            ActivatePreviousLight();
+        }
+    }
+
+    public void ActivateNextLight()
+    {
+        objetosIndex++;
+        if (objetosIndex >= objetos.Length)
+        {
+            objetosIndex = 0;
+        }
+        DeactivateAllLights();
+        objetos[objetosIndex].SetActive(true);
+    }
+
+    public void ActivatePreviousLight()
+    {
+        objetosIndex--;
+        if (objetosIndex < 0)
+        {
+            objetosIndex = objetos.Length - 1;
+        }
+        DeactivateAllLights();
+        objetos[objetosIndex].SetActive(true);
+    }
+
+    void DeactivateAllLights()
+    {
+        foreach (GameObject g in objetos)
+        {
+            g.SetActive(false);
+        }
+    }
+
+
+    public void ActivateRepeating(float t)
+    {
+
     }
 }
+
+
+
